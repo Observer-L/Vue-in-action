@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <template v-if="list.length">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Count</th>
+                        <th>Operations</th>
+                        <th>Select
+                            <label @click="selectAll"><input type="checkbox" ref="all">All</label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in list" :key="index">
+                        <td>{{ index+1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>
+                            <button @click="handleAdd(index)">+</button>
+                            {{ item.count }}
+                            <button @click="handleReduce(index)" :disabled="item.count === 1">-</button>
+                        </td>
+                        <td>
+                            <button @click="handleRemove(index)">x</button>
+                        </td>
+                        <td v-if="item.show" @click="toggleShow(index)" >&#x2714;</td>
+                        <td v-else @click="toggleShow(index)">&#x274C;</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>Total: ￥{{ totalPrice }}</div>
+        </template>
+        <div v-else>Your shopping cart is empty</div>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
