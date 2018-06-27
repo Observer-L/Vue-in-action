@@ -12,7 +12,8 @@
     <div id="app">
         <!--使用v-bind(语法糖:)来传递动态数据 父组件的数据变化时也传递给子组件-->
         <!--v-model 绑定数据（子组件对父组件通信） 其实就是@input事件(input输入框的value值发生变化时就会触发input事件) 使用v-model通信有局限性（因需要触发input事件）-->
-        <input-number v-model="value" :max="10" :min="0"></input-number>
+        <!--数字输入框组件默认值为5，最大值设置为100，最小值设置为-100,step为步伐，默认值为1，这里设置为10-->
+        <input-number v-model="value" :max="100" :min="-100" :step="10"></input-number>
         <!--也可以使用自定义事件通信（子组件对父组件通信）-->
         <!--<input-number @on-change='value' :max='10' :min='0' :step='2'></input-number>-->
     </div>

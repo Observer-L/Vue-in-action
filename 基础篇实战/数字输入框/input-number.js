@@ -44,6 +44,10 @@ Vue.component('input-number', {
             type: Number,
             default: 0
         },
+        step: {
+            type: Number,
+            default: 1
+        }
     },
     // Vue组件是单向数据流，因此无法在组件内部直接修改 prop value 的值
     // data中的是组件自己的数据，作用域是组件本身
@@ -78,11 +82,12 @@ Vue.component('input-number', {
         },
         handleDown: function () {
             if (this.currentValue <= this.min) return;
-            this.currentValue--;
+            // 支持控制步进
+            this.currentValue -= this.step;
         },
         handleUp: function () {
             if (this.currentValue >= this.max) return;
-            this.currentValue++;
+            this.currentValue += this.step;
         },
         handleChange: function (e) {
             let val = e.target.value.trim();
