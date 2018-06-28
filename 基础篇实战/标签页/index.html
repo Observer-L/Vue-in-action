@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tabs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- 
+            这个标签页组件由tabs和子组件pane组成,使用了组件嵌套的方式,将一系列pane组件作为tabs组件的slot
+            由于tabs和pane两个组件是分离的,而tabs组件上的标题需由pane组件来定义,因为slot是写在pane里
+            因此在组件初始化(及标签标题动态改变)时,tabs要从pane里获取标题并保存起来,自己使用
+         -->
+         <!-- closable是布尔值，用v-bind传值 -->
+        <tabs v-model="activeKey">
+            <pane label="标签一" name="1" :closable=true>
+                标签一的内容
+            </pane>
+            <pane label="标签二" name="2" :closable=true>
+                标签二的内容
+            </pane>
+            <pane label="标签三" name="3" :closable=false>
+                标签三的内容
+            </pane>
+        </tabs>
+    </div>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <script src="pane.js"></script>
+    <script src="tab.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                activeKey: '1'
+            }
+        })
+    </script>
+</body>
+
+</html>
