@@ -22,19 +22,22 @@ Vue.directive('clickoutside', {
         el.__vueClickOutside__ = documentHandler;
         el.__vueClickOutsideESC__ = documentESC;
         document.addEventListener('click', documentHandler);
-        document.addEventListener('keydown', documentESC);
+        // 利用修饰符modifiers实现ESC键关闭功能的可选
+        if (binding.modifiers.esc) document.addEventListener('keydown', documentESC);
     },
     //更新事件
-    update: function (el) {
+    update: function (el, binding) {
         document.addEventListener('click', el.__vueClickOutside__);
-        document.addEventListener('keydown', el.__vueClickOutsideESC__);
+        if (binding.modifiers.esc) document.addEventListener('keydown', el.__vueClickOutsideESC__);
     },
     //移除事件
-    unbind: function (el) {
+    unbind: function (el, binding) {
         // 解除事件监听
         document.removeEventListener('click', el.__vueClickOutside__);
-        document.removeEventListener('keydown', el.__vueClickOutsideESC__);
         delete el.__vueClickOutside__;
-        delete el.__vueClickOutsideESC__;
+        if (binding.modifiers.esc) {
+            document.removeEventListener('keydown', el.__vueClickOutsideESC__);
+            delete el.__vueClickOutsideESC__;
+        };
     }
 })
