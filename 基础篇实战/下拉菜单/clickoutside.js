@@ -20,21 +20,21 @@ Vue.directive('clickoutside', {
         */
        
         el.__vueClickOutside__ = documentHandler;
-        el.__vueClickOutside__ = documentESC;
+        el.__vueClickOutsideESC__ = documentESC;
         document.addEventListener('click', documentHandler);
         document.addEventListener('keydown', documentESC);
     },
     //更新事件
     update: function (el) {
         document.addEventListener('click', el.__vueClickOutside__);
-        document.addEventListener('keydown', el.__vueClickOutside__);
+        document.addEventListener('keydown', el.__vueClickOutsideESC__);
     },
     //移除事件
     unbind: function (el) {
         // 解除事件监听
         document.removeEventListener('click', el.__vueClickOutside__);
-        document.removeEventListener('keydown', el.__vueClickOutside__);
+        document.removeEventListener('keydown', el.__vueClickOutsideESC__);
         delete el.__vueClickOutside__;
-        delete el.__vueClickOutside__;
+        delete el.__vueClickOutsideESC__;
     }
 })
