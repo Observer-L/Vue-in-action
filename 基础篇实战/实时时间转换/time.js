@@ -40,6 +40,7 @@ const Time = {
         let tip = ''; // 要写入的字符串
 
         if (timer <= 0) {
+            // 当给定的时间为现在或将来时
             tip = '刚刚';
         } else if (Math.floor(timer / 60) <= 0) {
             tip = '刚刚';
@@ -50,18 +51,44 @@ const Time = {
         } else if (timer / 86400 <= 31) {
             tip = Math.ceil(timer / 86400) + '天前'; // 对天数向上取整
         } else {
+            // 如果大于1个月则直接显示日期
             tip = this.getLastDate(timestamp);
         }
         return tip;
     },
-    // 获取距今天数（出生天数）
-    getBirthday: function (timestamp) {
+    // 获取两个日期的之间的年月日数目
+    getYMD: function (timestamp) {
+        const now_date = new Date();
+        const birth_date = new Date(timestamp);
+        let timer = (now_date - birth_date);
+        const msPerDay = 1000 * 60 * 60 * 24;
+        const years = Math.floor(timer / msPerDay / 365)
+        timer -= years * 365 * msPerDay;
+        const month = Math.floor(timer / msPerDay / 31)
+        timer -= month * 31 * msPerDay;
+        const days = Math.floor(timer / msPerDay)
+        let tip = years + '岁' + month + '个月' + days + '天';
+        return tip;
+    },
+    // 获取出生日期距今天数
+    // 支持出生天数转年龄
+    // 支持转换为具体年龄
+    getBirthday: function (timestamp, detail) {
         const now = this.getUnix();
         const timer = (now - timestamp) / 1000;
-        tip = Math.ceil(timer / 86400) + '天前';
+        // 如果没有在修饰符中指定或者年龄不到一岁则只获取距今天数
+        if (detail === undefined || timer / 86400 <= 31) {
+            tip = Math.ceil(timer / 86400) + '天';
+        }
+        // 获取具体年龄
+        else if (detail) {
+            tip = this.getYMD(timestamp);
+        } else {
+        // 不具体且年龄向上取整
+            tip = Math.ceil((timer / 86400) / 365) + '岁';
+        }
         return tip;
     }
-
 }
 
 Vue.directive('time', {
@@ -81,5 +108,10 @@ Vue.directive('time', {
 Vue.directive('birthday', {
     bind: function (el, binding) {
         el.innerHTML = Time.getBirthday(binding.value);
+        // 可选项
+        if (binding.modifiers.age) {
+            binding.modifiers.detail === true ? el.innerHTML = Time.getBirthday(binding.value, true) : el.innerHTML = Time.getBirthday(binding.value, false);
+        }
+
     }
 })

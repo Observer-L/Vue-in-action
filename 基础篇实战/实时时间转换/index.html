@@ -9,10 +9,11 @@
 
 <body>
   <div id="app" v-cloak>
-    <div v-time="timeNow"></div>
-    <div v-time="timeBefore"></div>
-    <div v-birthday="birthDate"></div>
-
+    距离现在：<div v-time="timeNow"></div>
+    距离给定时间：<div v-time="timeBefore"></div>
+    距离出生多少天：<div v-birthday="birthDate"></div>
+    今年多大了：<div v-birthday.age="birthDate"></div>
+    具体的年龄是：<div v-birthday.age.detail="birthDate"></div>
   </div>
   <script src="time.js"></script>
   <script src="index.js"></script>
