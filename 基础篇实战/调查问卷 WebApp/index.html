@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>问卷</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 每一页通过v-show切换显示 -->
+        <!-- 因为需要验证和重置问题，需要用到v-model和自定义组件实现双向绑定 -->
+        <!-- 
+            picked值类型为String或Array（单选框、文本框返回的是字符串，复选框返回的是数组）
+            target为下一页的索引
+            next_show和prev_show为上下页切换事件
+            on_change为问卷重置事件，针对不同的数值类型调用不同的句柄
+         -->
+        <div id="one" v-show="one">
+            <p>1.请问你的性别是</p>
+            <input type="radio" v-model="picked" value="男" id="male">
+            <label for="male">男</label>
+            <input type="radio" v-model="picked" value="女" id="female">
+            <label for="female">女</label>
+            <input type="radio" v-model="picked" value="保密" id="secrecy">
+            <label for="secrecy">保密</label>
+            <div class="btn">
+                <nextbtn :picked="picked" :target="2" @next_show="nextShow"></nextbtn>
+                <resetbtn :value="picked" @on_change="defcha"></resetbtn>
+            </div>
+        </div>
+        <div id="two" v-show="two">
+            <p>2.请你选择你的兴趣爱好</p>
+            <span>最少选择2项，最多选择3项</span>
+            <br>
+            <input type="checkbox" v-model="checked" value="看书" id="1">
+            <label for="1">看书</label>
+            <br>
+            <input type="checkbox" v-model="checked" value="游泳" id="2">
+            <label for="2">游泳</label>
+            <br>
+            <input type="checkbox" v-model="checked" value="跑步" id="3">
+            <label for="3">跑步</label>
+            <br>
+            <input type="checkbox" v-model="checked" value="看电影" id="4">
+            <label for="4">看电影</label>
+            <br>
+            <input type="checkbox" v-model="checked" value="听音乐" id="5">
+            <label for="5">听音乐</label>
+            <div class="btn">
+                <nextbtn :picked="checked" :target="3" @next_show="nextShow"></nextbtn>
+                <prevbtn :target="1" @prev_show="prevShow"></prevbtn>
+                <resetbtn :value="checked" @on_change="defcha"></resetbtn>
+            </div>
+        </div>
+        <div id="three" v-show="three">
+            <p>3.请介绍一下自己</p>
+            <textarea v-model="text" placeholder="不少于100字" id="text" rows="3" cols="20"></textarea>
+            {{text.length}}
+            <div class="btn">
+                <send :value="text"></send>
+                <prevbtn :target="2" @prev_show="prevShow"></prevbtn>
+                <resetbtn :value="text" @on_change="defchb"></resetbtn>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <script src="next.js"></script>
+    <script src="prev.js"></script>
+    <script src="reset.js"></script>
+    <script src="send.js"></script>
+    <script src="index.js"></script>
+
+</body>
+
+</html>
