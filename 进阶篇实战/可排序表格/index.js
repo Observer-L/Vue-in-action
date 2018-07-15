@@ -3,26 +3,31 @@ const app = new Vue({
     /* columns的每一项是一个对象
     title和key用来标识列的表头标题，必填。title对应组件data中列内容的字段名，key用来索引行内容
     sortable是选填字段，true为需要排序
+    witdh为列宽
     */
     data: {
         columns: [{
                 title: '姓名',
                 key: 'name',
+                width: 100,
                 sortable: false
             },
             {
                 title: '年龄',
                 key: 'age',
+                width: 50,
                 sortable: true
             },
             {
                 title: '出生日期',
                 key: 'birthday',
+                width: 150,
                 sortable: true
             },
             {
                 title: '地址',
                 key: 'address',
+                width: 250,
                 sortable: false
             }
         ],

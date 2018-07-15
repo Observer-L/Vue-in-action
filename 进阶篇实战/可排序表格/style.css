@@ -3,7 +3,8 @@
 
 }
 table{
-	width: 100%;
+    /* 将width设置为自动以支持用col调整列宽 */
+    width: auto; 
 	margin-bottom: 24px;
 	border-collapse: collapse;
 	border-spacing: 0;

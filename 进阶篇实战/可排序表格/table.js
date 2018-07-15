@@ -11,14 +11,14 @@ Vue.component('vTable', {
             default: function () {
                 return [];
             }
-        }
+        },
     },
     // 让原始数据和排序后的数据互相独立
     // 需要在初始化的时候赋值过去
     data: function () {
         return {
             currentColumns: [],
-            currentData: []
+            currentData: [],
         }
     },
     render: function (h) {
@@ -67,8 +67,22 @@ Vue.component('vTable', {
             });
             trs.push(h('tr', tds));
         })
+
+        // 利用<colgroup>、<col>元素和columns的with字段来设置每一行的列宽
+        const cols = [];
+        this.currentColumns.forEach(function (col) {
+            cols.push(h('col', {
+                style: {
+                    width: col.width + 'px',
+                }
+            }))
+        })
+
         // 返回组合好的行内容和表头节点进行渲染
         return h('table', [
+            h('colgroup', [
+                cols
+            ],),
             h('thead', [
                 h('tr', ths)
             ]),
