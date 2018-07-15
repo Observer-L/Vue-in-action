@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>可排序表格</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- 表格组件的所有内容（表头和行数据）由两个prop构成：columns 和 data，都是数组类型；
+                columns是用来描述每列的信息并渲染在<thead>内，可以指定是否排序；
+                    data是每一行的数据，由columns决定每一行里各列的顺序。
+        -->
+        <v-table :data="data" :columns="columns"></v-table>
+        <button @click="handleAddData">添加数据</button>
+    </div>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <script src="table.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
