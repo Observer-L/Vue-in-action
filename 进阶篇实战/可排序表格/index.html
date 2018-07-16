@@ -15,11 +15,16 @@
                 columns是用来描述每列的信息并渲染在<thead>内，可以指定是否排序；
                     data是每一行的数据，由columns决定每一行里各列的顺序。
         -->
+        使用render：
         <v-table :data="data" :columns="columns"></v-table>
         <button @click="handleAddData">添加数据</button>
+        <br>
+        使用template：
+        <v-tablet :data='data' :columns="columns"></v-tablet>
     </div>
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
     <script src="table.js"></script>
+    <script src="tablet.js"></script>
     <script src="index.js"></script>
 </body>
 
