@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>留言列表</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="message">
+            <!-- 使用v-model将username和message双向绑定 -->
+            <v-input v-model="username"></v-input>
+            <v-textarea v-model="message" ref="message"></v-textarea>
+            <button @click="handleSend">发布</button>
+        </div>
+        <list :list="list" @reply="handleReply"></list>
+    </div>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <script src="input.js"></script>
+    <script src="list.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
