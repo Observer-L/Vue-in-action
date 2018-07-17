@@ -7,6 +7,11 @@ Vue.component('list', {
             }
         }
     },
+    data: function () {
+        return {
+            messages: this.list
+        }
+    },
     render: function (h) {
         const _this = this;
         const list = [];
@@ -30,7 +35,17 @@ Vue.component('list', {
                                 _this.handleReply(index);
                             }
                         }
-                    }, '回复')
+                    }, '回复'),
+                    h('a', {
+                        attrs: {
+                            class: 'btn-close'
+                        },
+                        on: {
+                            click: function () {
+                                _this.handleDelete(index);
+                            }
+                        }
+                    }, 'X')
                 ])
             ])
             list.push(node);
@@ -52,6 +67,15 @@ Vue.component('list', {
     methods: {
         handleReply: function (index) {
             this.$emit('reply', index);
+        },
+        // 删除留言
+        handleDelete: function (index) {
+            this.messages.splice(index, 1);
+        }
+    },
+    watch: {
+        list(vals) {
+            this.messages = vals;
         }
     }
 });

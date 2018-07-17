@@ -59,12 +59,21 @@
     cursor: pointer;
     outline: none;
 }
-
+.list .btn-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: tomato;
+}
+.list .btn-close:hover {
+    color: red;
+}
 .list {
     margin-top: 50px;
 }
 
 .list-item {
+    position: relative;
     padding: 10px;
     border-bottom: 1px solid #e3e8ee;
     overflow: hidden;
