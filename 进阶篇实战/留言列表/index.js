@@ -24,7 +24,7 @@ const app = new Vue({
             // 重置文本框
             this.message = '';
         },
-        handleReply: function(index) {
+        handleReply: function (index) {
             // 提取要回复的昵称，并设置到文本框内
             const name = this.list[index].name;
             this.message = '回复@' + name + '：';

@@ -11,13 +11,21 @@
 
 <body>
     <div id="app" v-cloak>
+        使用render
         <div class="message">
-            <!-- 使用v-model将username和message双向绑定 -->
             <v-input v-model="username"></v-input>
             <v-textarea v-model="message" ref="message"></v-textarea>
             <button @click="handleSend">发布</button>
         </div>
         <list :list="list" @reply="handleReply"></list>
+
+        使用templete
+        <div class="message">
+            <v-inputs v-model='username'></v-inputs>
+            <v-textareas v-model='message' ref="message"></v-textareas>
+            <button @click="handleSend">发布</button>
+        </div>
+        <lists :list="list" @reply="handleReply"></lists>
     </div>
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
     <script src="input.js"></script>

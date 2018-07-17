@@ -74,3 +74,45 @@ Vue.component('list', {
         }
     }
 });
+
+
+// 使用template改写
+Vue.component('lists', {
+    template: `
+    <div v-if="this.list.length">
+	    <div  v-for="(msg,index) in this.list">
+            <div class="list">
+                <div class="list-item">
+                    <span>{{msg.name+'：'}}</span>
+                    <div class="list-msg">
+                        <p>{{msg.message}}</p>
+                        <a @click="handleReply(index)" class="list-reply">回复</a>
+                        <a @click="handleDelete(index)" class="list-delete">删除</a>
+                    </div>
+                </div>
+            </div>
+	    </div>
+	</div>
+	<div v-else class="list-nothing">留言列表为空</div>`,
+    props: {
+        list: {
+            type: Array,
+            default: function () {
+                return [];
+            }
+        }
+    },
+    data: function () {
+        return {
+            messages: this.list
+        }
+    },
+    methods: {
+        handleReply: function (index) {
+            this.$emit('reply', index);
+        },
+        handleDelete: function (index) {
+            this.messages.splice(index, 1);
+        }
+    }
+})

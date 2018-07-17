@@ -80,3 +80,54 @@ Vue.component('vTextarea', {
         }
     }
 });
+
+// 使用template改写
+Vue.component('vInputs', {
+    template: `
+	<div>
+	    <span>昵称：</span>
+        <input type="text" :value="value" @input="handleInput">
+    </div>`,
+    props: {
+        value: {
+            type: [String, Number],
+            default: ''
+        }
+    },
+    methods: {
+        handleInput: function (event) {
+            this.currentvalue = event.target.value;
+            this.$emit('input', event.target.value);
+        }
+    }
+
+});
+Vue.component('vTextareas', {
+    props: {
+        value: {
+            type: String,
+            default: ''
+        }
+    },
+    template: `
+    <div>
+        <span>留言内容：</span>
+        <textarea 
+            placeholder="请输入留言内容" 
+            :value="value" 
+            ref="message"
+            @input="handleText">
+        </textarea>
+    </div>
+	`,
+    methods: {
+        focus: function () {
+            this.$refs.message.focus();
+        },
+        handleText: function (event) {
+            this.currentvalue = event.target.value;
+            this.$emit('input', event.target.value);
+        }
+    }
+
+});
