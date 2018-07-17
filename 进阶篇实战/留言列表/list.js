@@ -38,14 +38,14 @@ Vue.component('list', {
                     }, '回复'),
                     h('a', {
                         attrs: {
-                            class: 'btn-close'
+                            class: 'list-delete'
                         },
                         on: {
                             click: function () {
                                 _this.handleDelete(index);
                             }
                         }
-                    }, 'X')
+                    }, '删除')
                 ])
             ])
             list.push(node);
@@ -71,11 +71,6 @@ Vue.component('list', {
         // 删除留言
         handleDelete: function (index) {
             this.messages.splice(index, 1);
-        }
-    },
-    watch: {
-        list(vals) {
-            this.messages = vals;
         }
     }
 });

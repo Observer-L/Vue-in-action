@@ -59,15 +59,7 @@
     cursor: pointer;
     outline: none;
 }
-.list .btn-close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    color: tomato;
-}
-.list .btn-close:hover {
-    color: red;
-}
+
 .list {
     margin-top: 50px;
 }
@@ -108,6 +100,10 @@
     padding: 20px;
 }
 
-.list-reply {
+.list-reply, .list-delete  {
     margin-right: 20px;
+}
+
+.list .list-delete:hover {
+    color: tomato;
 }
