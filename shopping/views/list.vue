@@ -5,7 +5,7 @@
                 <span>品牌：</span>
                 <span
                     class="list-control-filter-item"
-                    :class="{on: item === filterBrand}"
+                    :class="{on: filterBrand.includes(item)}"
                     v-for="item in brands"
                     @click="handleFilterBrand(item)">{{ item }}</span>
             </div>
@@ -13,7 +13,7 @@
                 <span>颜色：</span>
                 <span
                     class="list-control-filter-item"
-                    :class="{on: item === filterColor}"
+                    :class="{on: filterColor.includes(item)}"
                     v-for="item in colors"
                     @click="handleFilterColor(item)">{{ item }}</span>
             </div>
@@ -60,13 +60,13 @@
             },
             filteredAndOrderedList () {
                 let list = [...this.list];
-                // 按品牌过滤
-                if (this.filterBrand !== '') {
-                    list = list.filter(item => item.brand === this.filterBrand);
+                // 按品牌过滤，支持多选
+                if (this.filterBrand.length !== 0) {
+                    list = list.filter(item => this.filterBrand.includes(item.brand));
                 }
                 // 按颜色过滤
-                if (this.filterColor !== '') {
-                    list = list.filter(item => item.color === this.filterColor);
+                if (this.filterColor.length !== 0) {
+                    list = list.filter(item => this.filterColor.includes(item.color));
                 }
                 // 排序
                 if (this.order !== '') {
@@ -83,24 +83,26 @@
         },
         data () {
             return {
-                filterBrand: '',
-                filterColor: '',
-                order: ''
+                // 品牌和颜色支持多选，排序依据单选
+                filterBrand: [],
+                filterColor: [],
+                order: '',
             }
         },
         methods: {
             handleFilterBrand (brand) {
-                if (this.filterBrand === brand) {
-                    this.filterBrand = '';
+                if (this.filterBrand.includes(brand)) {
+                    // 取消选择后，从filterBrand数组中删除brand
+                    this.filterBrand.splice(this.filterBrand.indexOf(brand), 1);
                 } else {
-                    this.filterBrand = brand;
+                    this.filterBrand.push(brand);
                 }
             },
             handleFilterColor (color) {
-                if (this.filterColor === color) {
-                    this.filterColor = '';
+                if (this.filterColor.includes(color)) {
+                    this.filterColor.splice(this.filterColor.indexOf(color), 1);
                 } else {
-                    this.filterColor = color;
+                    this.filterColor.push(color);
                 }
             },
             handleOrderDefault () {
