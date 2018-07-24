@@ -73,20 +73,24 @@ const store = new Vuex.Store({
                     count: 1
                 })
             }
+            localStorage.cartData = JSON.stringify(state.cartList);
         },
         // 修改商品数量
         editCartCount (state, payload) {
             const product = state.cartList.find(item => item.id === payload.id);
             product.count += payload.count;
+            localStorage.cartData = JSON.stringify(state.cartList);
         },
         // 删除商品
         deleteCart (state, id) {
             const index = state.cartList.findIndex(item => item.id === id);
             state.cartList.splice(index, 1);
+            localStorage.cartData = JSON.stringify(state.cartList);
         },
         // 清空购物车
         emptyCart (state) {
             state.cartList = [];
+            localStorage.cartData = JSON.stringify(state.cartList);
         }
     },
     actions: {
