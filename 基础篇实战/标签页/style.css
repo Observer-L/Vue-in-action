@@ -3,8 +3,12 @@
 }
 
 .tabs {
+    width: 500px;
+    margin: 0 auto;
     font-size: 14px;
     color: #657180;
+    padding: 10px;
+    box-shadow: 0 0 10px 0 #eee;
 }
 
 .tabs-bar:after {
@@ -43,8 +47,37 @@
     right: 0;
 }
 
-.tab-content {
-    padding: 8px 0;
+.tabs-content {
+    height: 200px;
+    overflow: hidden;
+}
+
+.pane {
+    height: 100%;
+    opacity: 1;
+}
+
+.pane:nth-child(1) {
+    background: tomato;
+}
+
+.pane:nth-child(2) {
+    background: deepskyblue;
+}
+
+.pane:nth-child(3) {
+    background: yellowgreen;
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition: all .3s ease;
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+    transform: translateX(80%);
+    opacity: 0;
 }
 
 .btn-close {

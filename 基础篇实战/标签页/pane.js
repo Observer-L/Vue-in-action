@@ -1,6 +1,10 @@
 Vue.component('pane', {
     name: 'pane',
-    template: `<div class="pane" v-show="show"><slot></slot></div>`,
+    template: `
+        <transition name="slide-fade">
+            <div class="pane" v-show="show"><slot></slot></div>
+        </transition>
+    `,
     // 定义show来控制标签内容的显示与隐藏
     data: function () {
         return {
